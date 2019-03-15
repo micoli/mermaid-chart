@@ -6,7 +6,7 @@ var serveStatic = require('serve-static')
 
 var app = express()
 
-app.use(serveStatic('docs', {'index': ['index.html','default.html', 'default.htm']}))
+app.use(serveStatic('docs', { 'index': ['index.html', 'default.html', 'default.htm'] }))
 app.listen(port)
 
 console.log(`Server listening port ${port}`)
