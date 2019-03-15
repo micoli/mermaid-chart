@@ -7,7 +7,7 @@
     "test:watch": "yarn test --watch",
     "dev": "parcel ./index.html -d build",
     "release": "parcel build ./index.html -d docs --public-url ./",
-    "build": "parcel build ./index.html -d docs --public-url ./",
+    "build": "node generateExamples.js; parcel build ./index.html -d docs --public-url ./",
     "start": "node server.js"
   },
   "dependencies": {

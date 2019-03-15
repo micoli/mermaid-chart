@@ -5,6 +5,7 @@ import { Base64 } from 'js-base64'
 import mermaid from 'mermaid'
 
 import Error from './Error'
+import Example from './Example'
 import Preview from './Preview'
 import pkg from '../../package.json'
 import { base64ToState } from '../utils'
@@ -51,7 +52,7 @@ class Edit extends React.Component {
     const { match: { url } } = this.props
     return <div>
       <h1>Mermaid Live Editor</h1>
-      <Row gutter={16}>
+      <Row>
         <Col span={12}>
           <Affix>
             <Card title='Code'>
@@ -65,6 +66,7 @@ class Edit extends React.Component {
             <ul className='marketing-links'>
               <li><a href='https://mermaidjs.github.io/' target='_blank'><Icon type='book' /> Mermaid Documentation</a></li>
             </ul>
+            <Example></Example>
           </Card>
         </Col>
         <Col span={12}>

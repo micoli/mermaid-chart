@@ -1,0 +1,4 @@
+graph LR;
+    A-->B;
+    click A "Tooltip for a callback"
+    click B "http://www.github.com" "This is a tooltip for a link"

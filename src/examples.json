@@ -1,0 +1,187 @@
+[
+    {
+        "cat": "01 Sequence",
+        "codes": [
+            {
+                "key": "0-0",
+                "title": "01 example",
+                "code": "sequenceDiagram\n    participant John\n    participant Alice\n    Alice->>John: Hello John, how are you?\n    John-->>Alice: Great!"
+            },
+            {
+                "key": "0-1",
+                "title": "02 Aliases",
+                "code": "sequenceDiagram\n    participant A as Alice\n    participant J as John\n    A->>J: Hello John, how are you?\n    J->>A: Great!"
+            },
+            {
+                "key": "0-2",
+                "title": "03 messages",
+                "code": "sequenceDiagram\n    Alice->>John: Hello John, how are you?\n    activate John\n    John-->>Alice: Great!\n    deactivate John\n"
+            },
+            {
+                "key": "0-3",
+                "title": "04 messages 2",
+                "code": "sequenceDiagram\n    Alice->>+John: Hello John, how are you?\n    Alice->>+John: John, can you hear me?\n    John-->>-Alice: Hi Alice, I can hear you!\n    John-->>-Alice: I feel great!\n"
+            },
+            {
+                "key": "0-4",
+                "title": "05 Notes",
+                "code": "sequenceDiagram\n    participant John\n    Note right of John: Text in note\n    Alice->John: Hello John, how are you?\n    Note over Alice,John: A typical interaction"
+            },
+            {
+                "key": "0-5",
+                "title": "06 Loop",
+                "code": "sequenceDiagram\n    Alice->John: Hello John, how are you?\n    loop Every minute\n        John-->Alice: Great!\n    end\n"
+            },
+            {
+                "key": "0-6",
+                "title": "07 Alt",
+                "code": "sequenceDiagram\n    Alice->>Bob: Hello Bob, how are you?\n    alt is sick\n        Bob->>Alice: Not so good :(\n    else is well\n        Bob->>Alice: Feeling fresh like a daisy\n    end\n    opt Extra response\n        Bob->>Alice: Thanks for asking\n    end\n"
+            },
+            {
+                "key": "0-7",
+                "title": "08 Full example",
+                "code": "sequenceDiagram\n    Alice ->> Bob: Hello Bob, how are you?\n    Bob-->>John: How about you John?\n    Bob--x Alice: I am good thanks!\n    Bob-x John: I am good thanks!\n    Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.\n\n    Bob-->Alice: Checking with John...\n    Alice->John: Yes... John, how are you?\n"
+            },
+            {
+                "key": "0-8",
+                "title": "09 Loops alt opt",
+                "code": "sequenceDiagram\n    loop Daily query\n        Alice->>Bob: Hello Bob, how are you?\n        alt is sick\n            Bob->>Alice: Not so good :(\n        else is well\n            Bob->>Alice: Feeling fresh like a daisy\n        end\n\n        opt Extra response\n            Bob->>Alice: Thanks for asking\n        end\n    end\n"
+            },
+            {
+                "key": "0-9",
+                "title": "10 Message to self in loop",
+                "code": "sequenceDiagram\n    participant Alice\n    participant Bob\n    Alice->>John: Hello John, how are you?\n    loop Healthcheck\n        John->>John: Fight against hypochondria\n    end\n    Note right of John: Rational thoughts<br/>prevail...\n    John-->>Alice: Great!\n    John->>Bob: How about you?\n    Bob-->>John: Jolly good!\n"
+            }
+        ]
+    },
+    {
+        "cat": "02 Graph",
+        "codes": [
+            {
+                "key": "1-0",
+                "title": "01 Basic start stop td",
+                "code": "graph TD\n    Start --> Stop"
+            },
+            {
+                "key": "1-1",
+                "title": "02 Basic start stop lr",
+                "code": "graph LR\n    Start --> Stop"
+            },
+            {
+                "key": "1-2",
+                "title": "03 A node",
+                "code": "graph LR\n    id"
+            },
+            {
+                "key": "1-3",
+                "title": "04 A node with text",
+                "code": "graph LR\n    id1[This is the text in the box]\n"
+            },
+            {
+                "key": "1-4",
+                "title": "05 A node with round edges",
+                "code": "graph LR\n    id1(This is the text in the box)\n"
+            },
+            {
+                "key": "1-5",
+                "title": "06 A node in a circle",
+                "code": "graph LR\n    id1((This is the text in the circle))\n"
+            },
+            {
+                "key": "1-6",
+                "title": "07 A node in an asymetric shape",
+                "code": "graph LR\n    id1>This is the text in the box]\n"
+            },
+            {
+                "key": "1-7",
+                "title": "08 A node rhombus",
+                "code": "graph LR\n    id1{This is the text in the box}"
+            },
+            {
+                "key": "1-8",
+                "title": "09 A link with arrow head",
+                "code": "graph LR\n    A-->B\n"
+            },
+            {
+                "key": "1-9",
+                "title": "10 An open link",
+                "code": "graph LR\n    A --- B\n"
+            },
+            {
+                "key": "1-10",
+                "title": "11 Text on links",
+                "code": "graph LR\n    A-- This is the text ---B\n    A---|This is the text|B\n"
+            },
+            {
+                "key": "1-11",
+                "title": "12 A link with arrow head and text",
+                "code": "graph LR\n    A-->|text|B\n    A-- text -->B"
+            },
+            {
+                "key": "1-12",
+                "title": "13 Dotted link",
+                "code": "graph LR;\n   A-.->B;"
+            },
+            {
+                "key": "1-13",
+                "title": "14 Dotted link with text",
+                "code": "graph LR\n   A-. text .-> B\n"
+            },
+            {
+                "key": "1-14",
+                "title": "15 Thick link",
+                "code": "graph LR\n   A ==> B\n"
+            },
+            {
+                "key": "1-15",
+                "title": "16 Thick link with text",
+                "code": "graph LR\n   A == text ==> B\n"
+            },
+            {
+                "key": "1-16",
+                "title": "17 Special characters that break syntax",
+                "code": "graph LR\n    id1[\"This is the (text) in the box\"]\n"
+            },
+            {
+                "key": "1-17",
+                "title": "18 Entity codes to escape characters",
+                "code": "graph LR\n        A[\"A double quote:#quot;\"] -->B[\"A dec char:#9829;\"]\n"
+            },
+            {
+                "key": "1-18",
+                "title": "19 Subgraphs",
+                "code": "graph TB\n    c1-->a2\n    subgraph one\n    a1-->a2\n    end\n    subgraph two\n    b1-->b2\n    end\n    subgraph three\n    c1-->c2\n    end\n"
+            },
+            {
+                "key": "1-19",
+                "title": "20 Interaction",
+                "code": "graph LR;\n    A-->B;\n    click A \"Tooltip for a callback\"\n    click B \"http://www.github.com\" \"This is a tooltip for a link\"\n"
+            },
+            {
+                "key": "1-20",
+                "title": "21 Flowchart",
+                "code": "graph LR\n    A[Square Rect] -- Link text --> B((Circle))\n    A --> C(Round Rect)\n    B --> D{Rhombus}\n    C --> D\n"
+            },
+            {
+                "key": "1-21",
+                "title": "22 Larger flowchart with some styling",
+                "code": "graph TB\n    sq[Square shape] --> ci((Circle shape))\n\n    subgraph A subgraph\n        od>Odd shape]-- Two line<br/>edge comment --> ro\n        di{Diamond with <br/> line break} -.-> ro(Rounded<br>square<br>shape)\n        di==>ro2(Rounded square shape)\n    end\n\n    %% Notice that no text in shape are added here instead that is appended further down\n    e --> od3>Really long text with linebreak<br>in an Odd shape]\n\n    %% Comments after double percent signs\n    e((Inner / circle<br>and some odd <br>special characters)) --> f(,.?!+-*ز)\n\n    cyr[Cyrillic]-->cyr2((Circle shape Начало));\n\n     classDef green fill:#9f6,stroke:#333,stroke-width:2px;\n     classDef orange fill:#f96,stroke:#333,stroke-width:4px;\n     class sq,e green\n     class di orange\n"
+            }
+        ]
+    },
+    {
+        "cat": "03 Gantt",
+        "codes": [
+            {
+                "key": "2-0",
+                "title": "01 Example",
+                "code": "gantt\n    title A Gantt Diagram\n    dateFormat  YYYY-MM-DD\n    section Section\n    A task           :a1, 2014-01-01, 30d\n    Another task     :after a1  , 20d\n    section Another\n    Task in sec      :2014-01-12  , 12d\n    another task      : 24d"
+            },
+            {
+                "key": "2-1",
+                "title": "02 Large example",
+                "code": "gantt\n       dateFormat  YYYY-MM-DD\n       title Adding GANTT diagram functionality to mermaid\n\n       section A section\n       Completed task            :done,    des1, 2014-01-06,2014-01-08\n       Active task               :active,  des2, 2014-01-09, 3d\n       Future task               :         des3, after des2, 5d\n       Future task2              :         des4, after des3, 5d\n\n       section Critical tasks\n       Completed task in the critical line :crit, done, 2014-01-06,24h\n       Implement parser and jison          :crit, done, after des1, 2d\n       Create tests for parser             :crit, active, 3d\n       Future task in critical line        :crit, 5d\n       Create tests for renderer           :2d\n       Add to mermaid                      :1d\n\n       section Documentation\n       Describe gantt syntax               :active, a1, after des1, 3d\n       Add gantt diagram to demo page      :after a1  , 20h\n       Add another diagram to demo page    :doc1, after a1  , 48h\n\n       section Last section\n       Describe gantt syntax               :after doc1, 3d\n       Add gantt diagram to demo page      :20h\n       Add another diagram to demo page    :48h\n"
+            }
+        ]
+    }
+]

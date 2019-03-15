@@ -1,0 +1,3 @@
+graph LR
+    A-->|text|B
+    A-- text -->B

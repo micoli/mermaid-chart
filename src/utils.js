@@ -18,12 +18,9 @@ export const base64ToState = (base64, search) => {
   return state
 }
 
-const defaultCode = `graph TD
-A[Christmas] -->|Get money| B(Go shopping)
-B --> C{Let me think}
-C -->|One| D[Laptop]
-C -->|Two| E[iPhone]
-C -->|Three| F[fa:fa-car Car]
+const defaultCode = `
+sequenceDiagram
+    a ->> b : link
 `
 export const defaultState = {
   code: defaultCode,
