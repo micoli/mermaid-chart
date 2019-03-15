@@ -66,7 +66,7 @@ class Edit extends React.Component {
             <ul className='marketing-links'>
               <li><a href='https://mermaidjs.github.io/' target='_blank'><Icon type='book' /> Mermaid Documentation</a></li>
             </ul>
-            <Example></Example>
+            <Example />
           </Card>
         </Col>
         <Col span={12}>
