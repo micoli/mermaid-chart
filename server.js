@@ -1,18 +1,76 @@
 // content of index.js
-const http = require('http')
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
-const requestHandler = (request, response) => {
-  console.log(request.url)
-  response.end('Hello Node.js Server!')
-}
+const http = require('http');
+const url = require('url');
+const fs = require('fs');
+const path = require('path');
 
-const server = http.createServer(requestHandler)
+const root = path.resolve("./docs");
+process.chdir(root)
 
-server.listen(port, (err) => {
-  if (err) {
-    return console.log('something bad happened', err)
-  }
+const map = {
+  '.ico': 'image/x-icon',
+  '.htm': 'text/html',
+  '.html': 'text/html',
+  '.js': 'text/javascript',
+  '.json': 'application/json',
+  '.css': 'text/css',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.wav': 'audio/wav',
+  '.mp3': 'audio/mpeg',
+  '.svg': 'image/svg+xml',
+  '.pdf': 'application/pdf',
+  '.doc': 'application/msword'
+};
 
-  console.log(`server is listening on ${port}`)
-})
+http.createServer(function (req, res) {
+  console.log(`${req.method} ${req.url}`);
+
+  // parse URL
+  const parsedUrl = url.parse(req.url);
+  // extract URL path
+  let pathname = `.${parsedUrl.pathname}`;
+  // based on the URL path, extract the file extention. e.g. .js, .doc, ...
+  var ext = path.parse(pathname).ext;
+  // maps file extention to MIME typere
+
+  fs.exists(pathname, function (exist) {
+    if(!exist) {
+      // if the file is not found, return 404
+      res.statusCode = 404;
+      res.end(`File ${pathname} not found!`);
+      return;
+    }
+
+    // if is a directory search for index file matching the extention
+    if (fs.statSync(pathname).isDirectory()) {
+      pathname += '/index.html';
+      ext += '.html';
+    }
+
+    if(!path.resolve(pathname).startsWith(root)){
+      res.statusCode = 403;
+      res.end(`File ${pathname} not found!!`);
+      return;
+    }
+
+
+    // read file from file system
+    fs.readFile(pathname, function(err, data){
+      if(err){
+        res.statusCode = 500;
+        res.end(`Error getting the file: ${err}.`);
+      } else {
+        // if the file is found, set Content-type and send data
+        res.setHeader('Content-type', map[ext] || 'text/plain' );
+        res.end(data);
+      }
+    });
+  });
+
+
+}).listen(parseInt(port));
+
+console.log(`Server listening ${root} on port ${port}`);
