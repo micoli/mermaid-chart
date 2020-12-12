@@ -1,28 +1,33 @@
-var fs = require('fs')
+const fs = require('fs');
+const mermaid = require('mermaid');
 
-var walkTemplates = function (dir) {
-  var res = []
-  fs.readdirSync(dir).forEach(function (type, k) {
-    if (fs.statSync(dir + '/' + type).isDirectory()) {
-      var codes = []
-      fs.readdirSync(dir + '/' + type).forEach(function (example, kk) {
+mermaid.mermaidAPI.initialize({
+  startOnLoad: true,
+});
+
+const walkTemplates = function (dir) {
+  const res = [];
+  fs.readdirSync(dir).forEach((type, k) => {
+    if (fs.statSync(`${dir}/${type}`).isDirectory()) {
+      const codes = [];
+      fs.readdirSync(`${dir}/${type}`).forEach((example, kk) => {
         codes.push({
-          'key': '' + k + '-' + kk,
-          'title': example.replace(/-/g, ' ').replace('.txt', ''),
-          'code': fs.readFileSync(dir + '/' + type + '/' + example).toString()
-        })
-      })
+          key: `${k}-${kk}`,
+          title: example.replace(/-/g, ' ').replace('.txt', ''),
+          code: fs.readFileSync(`${dir}/${type}/${example}`).toString(),
+        });
+      });
       res.push({
         cat: type.replace(/-/g, ' '),
-        codes: codes
-      })
+        codes,
+      });
     }
-  })
-  return JSON.stringify(res, null, 4)
-}
+  });
+  return JSON.stringify(res, null, 4);
+};
 
-const outFilename = 'src/examples.json'
-fs.writeFile(outFilename, walkTemplates('examples'), function (err) {
-  if (err) throw err
-  console.log(outFilename + ' saved.')
-})
+const outFilename = 'src/examples.json';
+fs.writeFile(outFilename, walkTemplates('examples'), (err) => {
+  if (err) throw err;
+  console.log(`${outFilename} saved.`);
+});
