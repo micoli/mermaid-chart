@@ -1,6 +1,6 @@
-/* eslint-disable no-param-reassign,jsx-a11y/anchor-is-valid */
+/* eslint-disable no-param-reassign,jsx-a11y/anchor-is-valid,no-undef */
 import React from 'react';
-import { Divider, Card } from 'antd';
+import { Divider } from 'antd';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { Base64 } from 'js-base64';
@@ -10,6 +10,9 @@ class Preview extends React.Component {
   constructor(props) {
     super(props);
     this.onDownloadSVG = this.onDownloadSVG.bind(this);
+    this.getCanvas = this.getCanvas.bind(this);
+    this.onCopyPNG = this.onCopyPNG.bind(this);
+    this.onDownloadPNG = this.onDownloadPNG.bind(this);
   }
 
   componentDidMount() {
@@ -23,8 +26,58 @@ class Preview extends React.Component {
   }
 
   onDownloadSVG(event) {
-    event.target.href = `data:image/svg+xml;base64,${Base64.encode(this.container.innerHTML)}`;
-    event.target.download = `mermaid-diagram-${moment().format('YYYYMMDDHHmmss')}.svg`;
+    const a = document.createElement('a');
+    a.download = `mermaid-diagram-${moment()
+      .format(
+        'YYYYMMDDHHmmss',
+      )}.svg`;
+    a.href = `data:image/svg+xml;base64,${Base64.encode(this.container.innerHTML)}`;
+    a.click();
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  onCopyPNG(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.getCanvas((canvas) => {
+      canvas.toBlob((blob) => {
+        navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      });
+    });
+  }
+
+  onDownloadPNG(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.getCanvas((canvas) => {
+      const a = document.createElement('a');
+      a.download = `mermaid-diagram-${moment().format(
+        'YYYYMMDDHHmmss',
+      )}.png`;
+      a.href = canvas
+        .toDataURL('image/png')
+        .replace('image/png', 'image/octet-stream');
+      a.click();
+    });
+  }
+
+  getCanvas(cb) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const svg = document.querySelector('svg', this.container);
+
+    canvas.width = svg.viewBox.baseVal.width * 2;
+    canvas.height = svg.viewBox.baseVal.height * 2;
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    const image = new Image();
+    image.onload = () => {
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      cb(canvas);
+    };
+    image.src = `data:image/svg+xml;base64,${Base64.encode(this.container.innerHTML)}`;
   }
 
   initMermaid() {
@@ -44,6 +97,10 @@ class Preview extends React.Component {
       <div>
         <div className="links">
           <a href="" download="" onClick={this.onDownloadSVG}>Download SVG</a>
+          <Divider type="vertical" />
+          <a href="" download="" onClick={this.onDownloadPNG}>Download PNG</a>
+          <Divider type="vertical" />
+          <a href="" onClick={this.onCopyPNG}>Copy PNG</a>
           <Divider type="vertical" />
           <Link to={url.replace('/edit/', '/view/')}>Link to View</Link>
         </div>

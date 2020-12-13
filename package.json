@@ -7,7 +7,7 @@
     "dev": "webpack serve --config ./webpack.config.js --mode development",
     "build": "webpack --config ./webpack.config.js",
     "test": "echo \"No test specified\" && exit 0",
-    "deploy": "gh-pages -d dist"
+    "deploy": "node generateExamples.js && yarn build && yarn gh-pages -d dist"
   },
   "keywords": [],
   "author": "",

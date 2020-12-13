@@ -1,9 +1,4 @@
 const fs = require('fs');
-const mermaid = require('mermaid');
-
-mermaid.mermaidAPI.initialize({
-  startOnLoad: true,
-});
 
 const walkTemplates = function (dir) {
   const res = [];
